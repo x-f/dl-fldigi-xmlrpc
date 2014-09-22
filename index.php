@@ -21,17 +21,17 @@ require_once dirname(__FILE__) . "/includes/config.php";
 <?php
 foreach ($dlfldigi_instances as $dl_name => $dl_params) {
   ?>
-  <div class="dl-instance" id="<?php echo $dl_name;?>">
+<div class="dl-instance" id="<?php echo $dl_name;?>">
   <h2>dl-fldigi: <?php echo $dl_name; ?></h2>
-  <!-- <div class='dl-instance-container'> -->
     
     <div class='wf-container'>
       <div class='wf-carrier'></div>
-      <img class='wf' src='./dl-fldigi-wf/wf-<?php echo $dl_name;?>.png' data-src='./dl-fldigi-wf/wf-<?php echo $dl_name;?>.png'/>
+      <img src="./assets/i/loading.gif" class="wf-loading" alt=""/>
+      <img src='./dl-fldigi-wf/?wf=<?php echo $dl_name;?>' class='wf' data-src='./dl-fldigi-wf/?b&amp;wf=<?php echo $dl_name;?>'/>
     </div>
   
   Freq: 
-  <input type='text' readonly='readonly' class='main_get_frequency' value='--' size='9'/>+<input type='text' readonly='readonly' class='modem_get_carrier' value='--' size='4'/> Hz
+  <input type='text' class='main_get_frequency' value='--' size='9'/>+<input type='text' readonly='readonly' class='modem_get_carrier' value='--' size='4'/> Hz
   &nbsp;&nbsp;
   
   <a href='#' class='button modem_inc_carrier_ctrl' data-dir='dec'>«</a><select class='modem_inc_carrier_step'>
@@ -99,8 +99,7 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
     </div>
   </div><!-- keep-right -->
   
-  <!--</div><!-- dl-instance-container -->
-  </div><!-- dl-instance -->
+</div><!-- dl-instance -->
   <?php
   // break;
 }

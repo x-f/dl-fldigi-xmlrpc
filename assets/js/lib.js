@@ -1,9 +1,14 @@
 var upd_wf_intvl = {};
+var upd_wf_timeout = {};
+var upd_wf_xhr = {};
 var upd_data_intvl = {};
 $(document).ready(function() {
   $('.dl-instance').each(function() {
-    upd_wf_intvl[$(this).attr("id")] = false;
-    upd_data_intvl[$(this).attr("id")] = false;
+    var inst = $(this).attr("id");
+    upd_wf_intvl[inst] = false;
+    upd_wf_timeout[inst] = false;
+    upd_wf_xhr[inst] = false;
+    upd_data_intvl[inst] = false;
   });
 });
 
@@ -69,12 +74,35 @@ function dlfldigi_call(instance, key, value1, value2) {
   });
 }
 
-
-
 function upd_wf(inst) {
-  $("#" + inst + " .wf").each(function() {
-    var isrc = $(this).attr("data-src") + "?" + Date.now();
-    $(this).attr("src", isrc);
+  var wf = $("#" + inst + " .wf");
+  var wf_src = wf.attr("data-src");// + "&" + Date.now();
+
+  clearTimeout(upd_wf_timeout[inst]);
+  if (upd_wf_xhr[inst]) {
+    upd_wf_xhr[inst].abort();
+  }
+  
+  upd_wf_xhr[inst] = $.ajax({
+    url: wf_src, // b for base64
+    dataType: "text",
+    timeout: 2000, // maybe more?
+    beforeSend: function() {
+      // if wf not loaded in three seconds
+      // display "loading.." icon
+      upd_wf_timeout[inst] = setTimeout(function() {
+        $("#" + inst + " .wf-loading").show();
+      }, 3000);
+    },
+    success: function(response) {
+      if (!response) return;
+      clearTimeout(upd_wf_timeout[inst]);
+      $("#" + inst + " .wf-loading").hide();
+      wf_src = response;
+      wf_src = "data:image/png;base64," + wf_src;
+      wf.attr("src", wf_src);
+      upd_wf_xhr[inst] = false;
+    }
   });
 }
 function upd_data(inst) {
