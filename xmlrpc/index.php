@@ -13,14 +13,16 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
     $type = "string";
   if (in_array($key, array("main.set_rsid", "main.set_afc")))
     $type = "boolean";
+  if (in_array($key, array("rig.set_frequency")))
+    $type = "double";
 
   if ($value1 !== false) {
     if ($type == "boolean" && $value1 === "true") $value1 = true;
     if ($type == "boolean" && $value1 === "false") $value1 = false;
     $message->addParam(new xmlrpcval($value1, $type));
   }
-  if ($value2 !== false)
-    $message->addParam(new xmlrpcval($value2, $type));
+  //if ($value2 !== false)
+  //  $message->addParam(new xmlrpcval($value2, $type));
 
   // error_log("dlfldigi_call($key, $value1, $value2)");
 
@@ -55,6 +57,7 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
     if ($response->faultCode() == 5) {
       $err .= " (" . $xmlrpc_server . ":" . $xmlrpc_port . ")";
     }
+    $err .= " (" . $key . "=" . $value1 . ")";
     error_log($err);
     if (isset($_GET['dbg']))
       echo $err . "<br/>";

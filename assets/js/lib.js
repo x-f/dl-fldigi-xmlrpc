@@ -44,6 +44,9 @@ function dlfldigi_call(instance, key, value1, value2) {
             $(field_id).scrollTop($(field_id)[0].scrollHeight);
         } else if (key == "text.clear_rx") {
           $("#" + instance + ' .rx_get_data').val("");
+        } else if (key == "main.get_frequency") {
+          if (!$(field_id).is(":focus"))
+            $(field_id).val(value);
         } else {
           // console.log(key + "=" + typeof(value));
           if (typeof(value) == "boolean") {
@@ -132,9 +135,13 @@ $(document).ready(function() {
     var dir = $(this).attr("data-dir");
     var step = $(".modem_inc_carrier_step option:selected").val();
     if (dir == "dec") step = "-" + step;
-    // alert(t + v);
     dlfldigi_call(getInstanceId($(this)), "modem.inc_carrier", step);
     dlfldigi_call(getInstanceId($(this)), "modem.get_carrier");
+    return false;
+  });
+  $(".main_get_frequency").bind("change", function() {
+    dlfldigi_call(getInstanceId($(this)), "rig.set_frequency", $(this).val());
+    dlfldigi_call(getInstanceId($(this)), "main.get_frequency");
     return false;
   });
   $(".modem_get_name").bind("change", function() {

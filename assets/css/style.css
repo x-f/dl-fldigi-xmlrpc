@@ -11,6 +11,16 @@ a:link, a:visited, a:hover, a:active {
   font-weight: bold;
   color: #333;
 }
+input.main_get_frequency, textarea {
+  border: 1px solid silver;
+}
+input.main_get_frequency:focus, input.main_get_frequency:hover,
+textarea:focus,
+.text_clear_rx:hover {
+  border-color: #f00;
+  box-shadow: 0 0 5px #f00;
+  outline: none;
+}
 h2 {
   margin: 0px;
 }
