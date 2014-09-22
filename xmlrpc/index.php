@@ -33,15 +33,15 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
     return $err;
   }
 
-	$c = new xmlrpc_client("/RPC2", $xmlrpc_server, $xmlrpc_port);
-	if (isset($_GET['dbg'])) {
+  $c = new xmlrpc_client("/RPC2", $xmlrpc_server, $xmlrpc_port);
+  if (isset($_GET['dbg'])) {
     $c->setDebug(1);
     echo htmlentities($message->serialize());
   }
   
-	$response = &$c->send($message);
-	if (!$response->faultCode()) {
-		$v = $response->value();
+  $response = &$c->send($message);
+  if (!$response->faultCode()) {
+    $v = $response->value();
     if (count($v->me)) {
      //echo "me=" . print_r($v->me, true);
       foreach ($v->me as $k => $item) {
@@ -56,10 +56,10 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
       $err .= " (" . $xmlrpc_server . ":" . $xmlrpc_port . ")";
     }
     error_log($err);
-  	if (isset($_GET['dbg']))
+    if (isset($_GET['dbg']))
       echo $err . "<br/>";
     return $err . "\n";
-	}
+  }
 }
 
 

@@ -26,16 +26,14 @@ h2 {
   width: 100%;
 }
 .dl-instance textarea {
-/*  width: 794px;*/
   max-width: 794px;
   width: 100%;
-/*  max-width: 100%;*/
-  display: block;
   height: 80px;
-  font-family: Monaco;
-  font-size: 11px;
+  display: block;
   margin: 0px 0px 2px 0px;
   padding: 2px;
+  font-family: Cousine, Monaco, monospace;
+  font-size: .9em;
 }
 .text_clear_rx {
   float: right;

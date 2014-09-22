@@ -6,6 +6,7 @@ require_once dirname(__FILE__) . "/includes/config.php";
 <meta charset="utf-8"/>
 <title>radiostation7</title>
 
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cousine"/>
 <link rel="stylesheet" href="./assets/css/style.css"/>
 <script src="./assets/js/jquery.min.js"></script>
 <script src="./assets/js/jquery.base64.min.js"></script>
@@ -18,7 +19,7 @@ require_once dirname(__FILE__) . "/includes/config.php";
 <body>
 
 <?php
-foreach ($dlfldigi_instances as $dl_name => $dl_data) {
+foreach ($dlfldigi_instances as $dl_name => $dl_params) {
   ?>
   <div class="dl-instance" id="<?php echo $dl_name;?>">
   <h2>dl-fldigi: <?php echo $dl_name; ?></h2>
