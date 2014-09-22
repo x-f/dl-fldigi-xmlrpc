@@ -67,36 +67,41 @@ $xmlrpc_instance = isset($_GET['inst']) ? $_GET['inst'] : null;
 $xmlrpc_key = isset($_GET['key']) ? $_GET['key'] : null;
 $xmlrpc_value1 = isset($_GET['value1']) ? $_GET['value1'] : null;
 $xmlrpc_value2 = isset($_GET['value2']) ? $_GET['value2'] : null;
+//error_log("k=" . $xmlrpc_key . "; v=" . $xmlrpc_value1);
 
-$result = array();
-if (strpos($xmlrpc_key, ",") !== false) {
+if ($xmlrpc_instance && $xmlrpc_key) {
+
+  $result = array();
+  $calls = array();
+  if (strpos($xmlrpc_key, ",") === false) {
+    $calls = array($xmlrpc_key);
+  } else {
+    $calls = explode(",", $xmlrpc_key);
+  }
+
   // katrs atsevišķais pieprasījums
   // rezultātu liek masīvā
-  $calls = explode(",", $xmlrpc_key);
-  foreach ($calls as $key) {
-    //$result[$key] = dlfldigi_call($xmlrpc_instance, $key);
-    $res = dlfldigi_call($xmlrpc_instance, $key);
-	if ($key == "rx.get_data") $res = base64_encode($res);
-    $result[$key] = $res;
-  }
-} else {
-  if ($xmlrpc_key == "text.get_rx") {
-    // vispirms uzzina, cik tur pavisam ir,
-    // tad pieprasa pavisam-jau_saņemto garumu
-    $rx_len = dlfldigi_call($xmlrpc_instance, "text.get_rx_length");
-    $result[$xmlrpc_key] = dlfldigi_call($xmlrpc_instance, $xmlrpc_key, $xmlrpc_value1, $rx_len-$xmlrpc_value1);
-    $result[$xmlrpc_key] = base64_encode(rawurlencode($result[$xmlrpc_key]));
-  } else {
+  foreach ($calls as $xmlrpc_key) {
     $res = dlfldigi_call($xmlrpc_instance, $xmlrpc_key, $xmlrpc_value1);
-	if ($xmlrpc_key == "rx.get_data") $res = base64_encode($res);
+  
+    if ($xmlrpc_key == "rx.get_data") 
+      $res = base64_encode($res);
+  
+    if ($xmlrpc_key == "text.get_rx") {
+      // vispirms uzzina, cik tur pavisam ir,
+      // tad pieprasa pavisam-jau_saņemto garumu
+      $rx_len = dlfldigi_call($xmlrpc_instance, "text.get_rx_length");
+      $res = dlfldigi_call($xmlrpc_instance, $xmlrpc_key, $xmlrpc_value1, $rx_len-$xmlrpc_value1);
+      $res = base64_encode(rawurlencode($res));
+    }
     $result[$xmlrpc_key] = $res;
-	//print_r($result);
   }
-}
 
-// error_log(print_r($result, true));
-$result = json_encode($result);
-// error_log(print_r($result, true));
-echo $result;
+  // error_log(print_r($result, true));
+  $result = json_encode($result);
+  // error_log(print_r($result, true));
+  echo $result;
+
+}
 
 ?>

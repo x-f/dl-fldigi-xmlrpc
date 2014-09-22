@@ -42,17 +42,8 @@ function dlfldigi_call(instance, key, value1, value2) {
           $(field_id).append(rx);
           if (!$(field_id).is(":focus"))
             $(field_id).scrollTop($(field_id)[0].scrollHeight);
-          // else 
-            // $("#t1").prepend("!scroll ");
-        // } else if (key == "main.get_wf_sideband") {
-          // $(field_id + ' option:contains("' + value + '")').attr("selected", "selected");
-          // $(field_id + ' option[value="' + value + '"]').attr("selected", "selected");
-          // console.log(field_id + ' option:contains("' + value + '")');
         } else if (key == "text.clear_rx") {
-          // alert(key);
-          // $('.text_get_rx').val("");
-          // $('.rx_get_data').val("");
-          $(field_id + ' .rx_get_data').text("");
+          $("#" + instance + ' .rx_get_data').val("");
         } else {
           // console.log(key + "=" + typeof(value));
           if (typeof(value) == "boolean") {
@@ -143,24 +134,17 @@ $(document).ready(function() {
     if (dir == "dec") step = "-" + step;
     // alert(t + v);
     dlfldigi_call(getInstanceId($(this)), "modem.inc_carrier", step);
-    setTimeout(function() {
-      dlfldigi_call(getInstanceId($(this)), "modem.get_carrier");
-    }, 100);
+    dlfldigi_call(getInstanceId($(this)), "modem.get_carrier");
     return false;
   });
   $(".modem_get_name").bind("change", function() {
     dlfldigi_call(getInstanceId($(this)), "modem.set_by_name", $(this).val());
-    setTimeout(function() {
-      dlfldigi_call(getInstanceId($(this)), "modem.get_name");
-    }, 100);
+    dlfldigi_call(getInstanceId($(this)), "modem.get_name");
     return false;
   });
   $(".main_get_wf_sideband").bind("change", function() {
-    // alert("main_get_wf_sideband");
     dlfldigi_call(getInstanceId($(this)), "main.set_wf_sideband", $(this).val());
-    setTimeout(function() {
-      dlfldigi_call(getInstanceId($(this)), "main.get_wf_sideband");
-    }, 100);
+    dlfldigi_call(getInstanceId($(this)), "main.get_wf_sideband");
     return false;
   });
 
@@ -168,18 +152,14 @@ $(document).ready(function() {
     var v = $(this).attr("data-enabled");
     if (v == "true") v = false; else v = true;
     dlfldigi_call(getInstanceId($(this)), "main.set_rsid", v);
-    setTimeout(function() {
-      dlfldigi_call(getInstanceId($(this)), "main.get_rsid");
-    }, 100);
+    dlfldigi_call(getInstanceId($(this)), "main.get_rsid");
     return false;
   });
   $(".main_get_afc").bind("click", function() {
     var v = $(this).attr("data-enabled");
     if (v == "true") v = false; else v = true;
     dlfldigi_call(getInstanceId($(this)), "main.set_afc", v);
-    setTimeout(function() {
-      dlfldigi_call(getInstanceId($(this)), "main.get_afc");
-    }, 100);
+    dlfldigi_call(getInstanceId($(this)), "main.get_afc");
     return false;
   });
   
@@ -224,11 +204,8 @@ $(document).ready(function() {
     var inst = getInstanceId($(this));
     var clickOffsetX = event.pageX - $(this).offset().left;
     dlfldigi_call(inst, "modem.set_carrier", clickOffsetX * 4);
-    setTimeout(function() {
-      dlfldigi_call(inst, "modem.get_carrier");
-    }, 100);
+    dlfldigi_call(inst, "modem.get_carrier");
     event.preventDefault();
-    //$("#t1").prepend("c="+(clickOffsetX*4+10) + " / ");
   });
   $(".wf-container").mousemove(function(event) {
     var inst = getInstanceId($(this));
