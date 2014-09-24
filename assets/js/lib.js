@@ -48,7 +48,7 @@ function dlfldigi_call(instance, key, value1, value2) {
           if (!$(field_id).is(":focus"))
             $(field_id).scrollTop($(field_id)[0].scrollHeight);
         } else if (key == "text.clear_rx") {
-          $("#" + instance + ' .rx_get_data').val("");
+          $("#" + instance + ' .rx_get_data').text("");
         } else if (key == "main.get_frequency") {
           if (!$(field_id).is(":focus"))
             $(field_id).val(value);

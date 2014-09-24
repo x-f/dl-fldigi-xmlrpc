@@ -44,24 +44,28 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
   </select><a href='#' class='button modem_inc_carrier_ctrl' data-dir='inc'>»</a>
     
   <div class="keep-right">
-  Modem: 
+    Modem: 
     <select class='modem_get_name'>
       <option value="NONE">NONE</option>
       <option value="RTTY">RTTY</option>
       <option value="CW">CW</option>
-      <option value="THOR4">THOR4</option>
-      <option value="THOR5">THOR5</option>
-      <option value="THOR8">THOR8</option>
-      <option value="THOR11">THOR11</option>
-      <option value="THOR16">THOR16</option>
-      <option value="THOR22">THOR22</option>
-      <option value="CTSTIA">CTSTIA</option>
-      <option value="DOMEX4">DOMEX4</option>
-      <option value="DOMEX5">DOMEX5</option>
-      <option value="DOMEX8">DOMEX8</option>
-      <option value="DOMX11">DOMX11</option>
-      <option value="DOMX16">DOMX16</option>
-      <option value="DOMX22">DOMX22</option>
+      <option value="CTSTIA">Contestia</option>
+      <optgroup label="THOR">
+        <option value="THOR4">THOR 4</option>
+        <option value="THOR5">THOR 5</option>
+        <option value="THOR8">THOR 8</option>
+        <option value="THOR11">THOR 11</option>
+        <option value="THOR16">THOR 16</option>
+        <option value="THOR22">THOR 22</option>
+      </optgroup>
+      <optgroup label="DominoEX">
+        <option value="DOMEX4">DominoEX 4</option>
+        <option value="DOMEX5">DominoEX 5</option>
+        <option value="DOMEX8">DominoEX 8</option>
+        <option value="DOMX11">DominoEX 11</option>
+        <option value="DOMX16">DominoEX 16</option>
+        <option value="DOMX22">DominoEX 22</option>
+      </optgroup>
     </select>
     
     Mode:
