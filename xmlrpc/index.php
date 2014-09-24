@@ -9,7 +9,7 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
   $message = new xmlrpcmsg($key);
   // var_dump(is_int(intval($value1)), is_string($value1));
   $type = "int";
-  if (in_array($key, array("main.set_wf_sideband", "modem.set_by_name")))
+  if (in_array($key, array("main.set_wf_sideband", "modem.set_by_name", "rig.set_mode")))
     $type = "string";
   if (in_array($key, array("main.set_rsid", "main.set_afc")))
     $type = "boolean";

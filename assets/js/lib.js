@@ -116,7 +116,8 @@ function dlfldigi_getData(inst) {
     "modem.get_carrier",
     "main.get_status1",
     "main.get_status2",
-    "main.get_wf_sideband",
+    // "main.get_wf_sideband",
+    "rig.get_mode",
     "main.get_frequency",
     "main.get_rsid",
     "main.get_afc",
@@ -177,9 +178,9 @@ $(document).ready(function() {
     dlfldigi_call(getInstanceId($(this)), "modem.get_name");
     return false;
   });
-  $(".main_get_wf_sideband").bind("change", function() {
-    dlfldigi_call(getInstanceId($(this)), "main.set_wf_sideband", $(this).val());
-    dlfldigi_call(getInstanceId($(this)), "main.get_wf_sideband");
+  $(".rig_get_mode").bind("change", function() {
+    dlfldigi_call(getInstanceId($(this)), "rig.set_mode", $(this).val());
+    dlfldigi_call(getInstanceId($(this)), "rig.get_mode");
     return false;
   });
 

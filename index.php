@@ -63,11 +63,14 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
       <option value="DOMX16">DOMX16</option>
       <option value="DOMX22">DOMX22</option>
     </select>
-  Mode:
-    <select class='main_get_wf_sideband'>
+    
+    Mode:
+    <select class='rig_get_mode'>
       <option value="NONE">NONE</option>
       <option value="USB">USB</option>
       <option value="LSB">LSB</option>
+      <option value="AM">AM</option>
+      <option value="FM">FM</option>
     </select>
   </div>
 
