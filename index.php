@@ -7,13 +7,13 @@ require_once dirname(__FILE__) . "/includes/config.php";
 <title>radiostation7</title>
 
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cousine"/>
-<link rel="stylesheet" href="./assets/css/style.css"/>
 <script src="./assets/js/jquery.min.js"></script>
 <script src="./assets/js/jquery.base64.min.js"></script>
-
-<link rel="stylesheet" href="./assets/css/jquery-ui.css">
+<script src="./assets/js/jquery.mousewheel.min.js"></script>
+<link rel="stylesheet" href="./assets/css/jquery-ui.css"/>
 <script src="./assets/js/jquery-ui.min.js"></script>
 
+<link rel="stylesheet" href="./assets/css/style.css"/>
 <script src="./assets/js/lib.js"></script>
 </head>
 <body>
@@ -27,11 +27,11 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
     <div class='wf-container'>
       <div class='wf-carrier'></div>
       <img src="./assets/i/loading.gif" class="wf-loading" alt=""/>
-      <img src='./dl-fldigi-wf/?wf=<?php echo $dl_name;?>' class='wf' data-src='./dl-fldigi-wf/?b&amp;wf=<?php echo $dl_name;?>'/>
+      <img src='./dl-fldigi-wf/?wf=<?php echo $dl_name;?>' class='wf' data-src='./dl-fldigi-wf/?b&amp;wf=<?php echo $dl_name;?>' alt=""/>
     </div>
   
-  Freq: 
-  <input type='text' class='main_get_frequency' value='--' size='9'/>+<input type='text' readonly='readonly' class='modem_get_carrier' value='--' size='4'/> Hz
+  Frequency:
+  <input type='text' class='main_get_frequency' value='--' data-step='100' size='9'/>+<input type='text' readonly='readonly' class='modem_get_carrier' value='--' size='4'/> Hz
   &nbsp;&nbsp;
   
   <a href='#' class='button modem_inc_carrier_ctrl' data-dir='dec'>«</a><select class='modem_inc_carrier_step'>
@@ -86,8 +86,8 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
   <input type='text' readonly='readonly' class='main_get_status2' value='--' size='10'/>
 
   &nbsp;&nbsp;&nbsp;
-  <span class="button main_get_rsid" data-enabled="false"><span>✓</span> RSID</span>
-  <span class="button left main_get_afc" data-enabled="false"><span>✓</span> AFC</span>
+  <a href="#" class="button main_get_rsid" data-enabled="false"><span>✓</span> RSID</a>
+  <a href="#" class="button left main_get_afc" data-enabled="false"><span>✓</span> AFC</a>
   
 
   <div class="keep-right">

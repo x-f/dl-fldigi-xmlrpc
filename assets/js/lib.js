@@ -162,14 +162,47 @@ $(document).ready(function() {
 
   $(".modem_inc_carrier_ctrl").bind("click", function() {
     var dir = $(this).attr("data-dir");
-    var step = $(".modem_inc_carrier_step option:selected").val();
+    var step = $("#" + getInstanceId($(this)) + " .modem_inc_carrier_step option:selected").val();
     if (dir == "dec") step = "-" + step;
     dlfldigi_call(getInstanceId($(this)), "modem.inc_carrier", step);
     dlfldigi_call(getInstanceId($(this)), "modem.get_carrier");
     return false;
   });
-  $(".main_get_frequency").bind("change", function() {
-    dlfldigi_call(getInstanceId($(this)), "rig.set_frequency", $(this).val());
+  $(".modem_inc_carrier_step").bind("change", function() {
+    var step = $(this).val();
+    $("#" + getInstanceId($(this)) + " .main_get_frequency").attr("data-step", step);
+    return false;
+  });
+  $(".main_get_frequency").bind("change keyup mousewheel", function(event, delta) {
+    var value = $(this).val();
+    value = parseInt(value, 10);
+
+    // delta is available only when mousewheel fires
+    // or when assigned after pressing up or down arrow
+    if (typeof(delta) == "undefined") var delta = 0;
+    
+    switch(event.which) {
+      case 38: // up
+        delta = 1;
+      break;
+      case 40: // down
+        delta = -1;
+      break;
+    }
+     
+    if (typeof(delta) != "undefined") {
+      var step = $(this).attr("data-step");
+      step = parseInt(step, 10);
+      
+      if (delta > 0) {
+        $(this).val(value + step);
+      } else {
+        if (value > 0) {
+          $(this).val(value - step);
+        }
+      }
+    }
+    dlfldigi_call(getInstanceId($(this)), "rig.set_frequency", value);
     dlfldigi_call(getInstanceId($(this)), "main.get_frequency");
     return false;
   });
