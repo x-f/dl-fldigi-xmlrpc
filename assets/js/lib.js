@@ -78,7 +78,7 @@ function upd_wf(inst) {
   var wf = $("#" + inst + " .wf");
   var wf_src = wf.attr("data-src");// + "&" + Date.now();
 
-  clearTimeout(upd_wf_timeout[inst]);
+  //clearTimeout(upd_wf_timeout[inst]);
   if (upd_wf_xhr[inst]) {
     upd_wf_xhr[inst].abort();
   }
@@ -189,22 +189,23 @@ $(document).ready(function() {
         delta = -1;
       break;
     }
-     
-    if (typeof(delta) != "undefined") {
+
+    if (delta) {
       var step = $(this).attr("data-step");
       step = parseInt(step, 10);
-      
+
       if (delta > 0) {
-        $(this).val(value + step);
+        value = value + step;
       } else {
         if (value > 0) {
-          $(this).val(value - step);
+          value = value - step;
         }
       }
     }
+    $(this).val(value);
     dlfldigi_call(getInstanceId($(this)), "rig.set_frequency", value);
     dlfldigi_call(getInstanceId($(this)), "main.get_frequency");
-    return false;
+    event.preventDefault();
   });
   $(".modem_get_name").bind("change", function() {
     dlfldigi_call(getInstanceId($(this)), "modem.set_by_name", $(this).val());
