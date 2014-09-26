@@ -170,12 +170,12 @@ $(document).ready(function() {
     $("#" + getInstanceId($(this)) + " .main_get_frequency").attr("data-step", step);
     return false;
   });
-  $(".main_get_frequency").bind("change keyup mousewheel", function(event, delta) {
+  $(".main_get_frequency").bind("keyup mousewheel", function(event, delta) {
     var value = $(this).val();
     value = parseInt(value, 10);
 
     // delta is available only when mousewheel fires
-    // or when assigned after pressing up or down arrow
+    // therefore reuse it for up and down arrow key presses
     if (typeof(delta) == "undefined") var delta = 0;
     
     switch(event.which) {

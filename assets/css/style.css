@@ -108,8 +108,7 @@ textarea:focus,
 
 .button {
   display: inline-block;
-  padding: 2px 7px;
-  margin: 2px;
+  padding: 4px 7px;
   border: 1px solid silver;
   border-radius: 4px;
   box-shadow: 2px 2px 2px #ccc;
@@ -121,10 +120,12 @@ textarea:focus,
   margin: 2px 0px 0px 10px;
 }
 .button span {
-  visibility: hidden;
+/*  visibility: hidden;*/
+  color: silver;
 }
 .button .button-enabled {
-  visibility: visible;
+/*  visibility: visible;*/
+  color: black;
 }
 .button.main_get_rsid, .button.main_get_afc {
   font-weight: normal;
