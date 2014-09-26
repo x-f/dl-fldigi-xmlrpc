@@ -53,15 +53,19 @@ function dlfldigi_call($instance, $key, $value1 = null, $value2 = null) {
       }
     }
   } else {
-    $err = date("H:i:s") . " DL-XMLRPC: " . "Code: " . $response->faultCode() . " Reason: '" . htmlspecialchars($response->faultString()) . "'";
-    if ($response->faultCode() == 5) {
-      $err .= " (" . $xmlrpc_server . ":" . $xmlrpc_port . ")";
+    // ignore code 2
+    // Code: 2 Reason: 'Invalid return payload: enable debugging to examine incoming payload found not-xmlrpc xml element NIL'
+    if ($response->faultCode() != 2) {
+      $err = "DL-XMLRPC: " . "Code: " . $response->faultCode() . " Reason: '" . htmlspecialchars($response->faultString()) . "'";
+      if ($response->faultCode() == 5) {
+        $err .= " (" . $xmlrpc_server . ":" . $xmlrpc_port . ")";
+      }
+      //$err .= " (" . $key . ($value1  ? "=" . $value1 : ""). ")";
+      error_log($err);
+      if (isset($_GET['dbg']))
+        echo $err . "<br/>";
+      return $err . "\n";
     }
-    $err .= " (" . $key . "=" . $value1 . ")";
-    error_log($err);
-    if (isset($_GET['dbg']))
-      echo $err . "<br/>";
-    return $err . "\n";
   }
 }
 
@@ -86,7 +90,11 @@ if ($xmlrpc_instance && $xmlrpc_key) {
   // rezultātu liek masīvā
   foreach ($calls as $xmlrpc_key) {
     $res = dlfldigi_call($xmlrpc_instance, $xmlrpc_key, $xmlrpc_value1);
-  
+
+    // H4X: if there's an error, display it in the text field
+    if (strpos($res, "DL-XMLRPC") !== false)
+      $xmlrpc_key = "rx.get_data";
+    
     if ($xmlrpc_key == "rx.get_data") 
       $res = base64_encode($res);
   

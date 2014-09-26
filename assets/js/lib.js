@@ -9,6 +9,8 @@ $(document).ready(function() {
     upd_wf_timeout[inst] = false;
     upd_wf_xhr[inst] = false;
     upd_data_intvl[inst] = false;
+    
+    dlfldigi_getData(inst, true);
   });
 });
 
@@ -110,28 +112,23 @@ function upd_data(inst) {
 }
 
 
-function dlfldigi_getData(inst) {
+function dlfldigi_getData(inst, initial) {
+  if (typeof(initial) == "undefined") var initial = false;
+  
   var calls = new Array(
     "modem.get_name",
     "modem.get_carrier",
     "main.get_status1",
     "main.get_status2",
-    // "main.get_wf_sideband",
     "rig.get_mode",
     "main.get_frequency",
     "main.get_rsid",
-    "main.get_afc",
-    // "main.get_reverse"//,
-    // "rig.get_bandwidth"
-    "rx.get_data"
+    "main.get_afc"
   );
+  // don't ask for the text on start up
+  if (!initial)
+    calls.push("rx.get_data");
   dlfldigi_call(inst, calls);
-
-  ////dlfldigi_call("text.get_rx_length");
-  // var rx = $('.text_get_rx').val();
-  // var rxl = rx.length;
-  // console.log("len=" + rxl);
-  // dlfldigi_call("text.get_rx", rxl);
 }
 function getInstanceId(jQthis) {
   return jQthis.closest(".dl-instance").attr("id");
