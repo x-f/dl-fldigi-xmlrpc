@@ -17,6 +17,7 @@ require_once dirname(__FILE__) . "/includes/config.php";
 <script src="./assets/js/lib.js"></script>
 </head>
 <body>
+<div id="dev"></div>
 
 <?php
 foreach ($dlfldigi_instances as $dl_name => $dl_params) {
@@ -27,7 +28,7 @@ foreach ($dlfldigi_instances as $dl_name => $dl_params) {
     <div class='wf-container'>
       <div class='wf-carrier'></div>
       <img src="./assets/i/loading.gif" class="wf-loading" alt=""/>
-      <img src='./dl-fldigi-wf/?wf=<?php echo $dl_name;?>' class='wf' data-src='./dl-fldigi-wf/?b&amp;wf=<?php echo $dl_name;?>' alt=""/>
+      <img src='./dl-fldigi-wf/?c&amp;wf=<?php echo $dl_name;?>' class='wf' data-src='./dl-fldigi-wf/?b&amp;c&amp;wf=<?php echo $dl_name;?>' alt=""/>
     </div>
   
   Frequency:

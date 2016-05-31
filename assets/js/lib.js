@@ -86,7 +86,7 @@ function upd_wf(inst) {
   }
   
   upd_wf_xhr[inst] = $.ajax({
-    url: wf_src, // b for base64
+    url: wf_src + "&a", // b for base64
     dataType: "text",
     timeout: 2000, // maybe more?
     beforeSend: function() {
@@ -100,8 +100,8 @@ function upd_wf(inst) {
       if (!response) return;
       clearTimeout(upd_wf_timeout[inst]);
       $("#" + inst + " .wf-loading").hide();
-      wf_src = response;
-      wf_src = "data:image/png;base64," + wf_src;
+      //wf_src = response;
+      //wf_src = "data:image/png;base64," + wf_src;
       wf.attr("src", wf_src);
       upd_wf_xhr[inst] = false;
     }
